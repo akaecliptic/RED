@@ -133,7 +133,7 @@ public class MovieFactory {
 
             Information information = parseInformation(json);
 
-            return new Movie(id, seen, title, description, nativeRating, userRating, release, information);
+            return new Movie(id, title, seen, description, nativeRating, userRating, release, information);
         }
     }
 
@@ -157,7 +157,7 @@ public class MovieFactory {
 
                 Information information = parseInformation(json);
 
-                movies[i] = new Movie(id, seen, title, description, nativeRating, userRating, release, information);
+                movies[i] = new Movie(id, title, seen, description, nativeRating, userRating, release, information);
             }
 
             return movies;

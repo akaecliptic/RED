@@ -8,18 +8,18 @@ public class Movie extends Media {
 
     private Information information;
 
-    public Movie(int id, boolean seen, String title, String description, int nativeRating, int userRating, LocalDate release, Information information) {
-        super(id, seen, title, description, nativeRating, userRating, release);
+    public Movie(int id, String title, boolean seen, String description, int nativeRating, int userRating, LocalDate release, Information information) {
+        super(id, title, seen, description, nativeRating, userRating, release);
         this.information = information;
     }
 
-    public Movie(int id, boolean seen, String title, String description, int nativeRating, int userRating, LocalDate release) {
-        super(id, seen, title, description, nativeRating, userRating, release);
+    public Movie(int id, String title, boolean seen, String description, int nativeRating, int userRating, LocalDate release) {
+        super(id, title, seen, description, nativeRating, userRating, release);
         this.information = new Information();
     }
 
-    public Movie(boolean seen, String title, String description, int nativeRating, int userRating, LocalDate release) {
-        super(seen, title, description, nativeRating, userRating, release);
+    public Movie(String title, boolean seen, String description, int nativeRating, int userRating, LocalDate release) {
+        super(title, seen, description, nativeRating, userRating, release);
         this.information = new Information();
     }
 

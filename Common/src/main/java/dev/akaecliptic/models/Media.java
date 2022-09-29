@@ -6,26 +6,26 @@ import java.time.LocalDate;
 public abstract class Media implements Serializable {
 
     protected int id;
-    protected boolean seen;
     protected String title;
+    protected boolean seen;
     protected String description;
     protected int nativeRating;
     protected int userRating;
     protected LocalDate release;
 
-    public Media(int id, boolean seen, String title, String description, int nativeRating, int userRating, LocalDate release) {
+    public Media(int id, String title, boolean seen, String description, int nativeRating, int userRating, LocalDate release) {
         this.id = id;
-        this.seen = seen;
         this.title = title;
+        this.seen = seen;
         this.description = description;
         this.nativeRating = nativeRating;
         this.userRating = userRating;
         this.release = release;
     }
 
-    public Media(boolean seen, String title, String description, int nativeRating, int userRating, LocalDate release) {
-        this.seen = seen;
+    public Media(String title, boolean seen, String description, int nativeRating, int userRating, LocalDate release) {
         this.title = title;
+        this.seen = seen;
         this.description = description;
         this.nativeRating = nativeRating;
         this.userRating = userRating;

@@ -43,7 +43,7 @@ public class TMDBContext {
     public TMDBContext(String apiKey, String language, String region) {
         this.apiKey = apiKey;
         this.language = "&language=" + language;
-        this.region = "&region=" + language;
+        this.region = "&region=" + region;
     }
 
     public String requireApiKey() throws ApiKeyException {
