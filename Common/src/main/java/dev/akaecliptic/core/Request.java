@@ -9,6 +9,7 @@ import java.net.http.HttpRequest.Builder;
 import java.net.http.HttpRequest.BodyPublisher;
 import java.time.Duration;
 
+@Deprecated
 public class Request {
     public static final int DEFAULT_TIMEOUT = 15;
     public static final int DEFAULT_RETRY = 3;

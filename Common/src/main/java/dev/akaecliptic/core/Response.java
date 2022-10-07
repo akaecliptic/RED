@@ -2,6 +2,7 @@ package dev.akaecliptic.core;
 
 import java.net.http.HttpResponse;
 
+@Deprecated
 public class Response<T> {
 
     private final HttpResponse<T> response;

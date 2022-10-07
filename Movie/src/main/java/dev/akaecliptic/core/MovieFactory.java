@@ -1,6 +1,7 @@
 package dev.akaecliptic.core;
 
 import com.google.gson.*;
+import dev.akaecliptic.models.Configuration;
 import dev.akaecliptic.models.Information;
 import dev.akaecliptic.models.Movie;
 
@@ -18,6 +19,7 @@ public class MovieFactory {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Movie.class, new MovieDeserializer());
         builder.registerTypeAdapter(Movie[].class, new MovieListDeserializer());
+        builder.registerTypeAdapter(Configuration.class, new ConfigurationDeserializer());
         gson = builder.create();
     }
 
@@ -46,6 +48,10 @@ public class MovieFactory {
         }
 
         return map;
+    }
+
+    public static Configuration createConfig(JsonElement json) {
+        return gson.fromJson(json, Configuration.class);
     }
 
     private static int getInt(JsonElement json) {
@@ -161,6 +167,30 @@ public class MovieFactory {
             }
 
             return movies;
+        }
+
+    }
+    private static class ConfigurationDeserializer implements JsonDeserializer<Configuration> {
+        @Override
+        public Configuration deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
+            JsonObject parent = element.getAsJsonObject();
+            JsonObject json = parent.getAsJsonObject("images");
+
+            if(json == null || json.isJsonNull()) return null;
+
+            String secure = getString(json.get("secure_base_url"));
+            String base = getString(json.get("base_url"));
+
+            JsonArray backdropSizes = getArray(json.get("backdrop_sizes"));
+            JsonArray posterSizes = getArray(json.get("poster_sizes"));
+
+            List<String> backdrops = new ArrayList<>();
+            List<String> posters = new ArrayList<>();
+
+            backdropSizes.forEach(child -> backdrops.add(getString(child)));
+            posterSizes.forEach(child -> posters.add(getString(child)));
+
+            return new Configuration(base, secure, backdrops.toArray(new String[]{}), posters.toArray(new String[]{}));
         }
 
     }

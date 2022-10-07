@@ -75,10 +75,6 @@ public class TMDBContext {
         return String.format("https://api.themoviedb.org/3/%s/%s", QueryType.MOVIE, id);
     }
 
-    public String image(String size, String url) {
-        return String.format("https://image.tmdb.org/t/p/%s/%s", size, url);
-    }
-
     public String query(String query) {
         return "&query=" + query;
     }
