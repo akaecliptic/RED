@@ -2,6 +2,7 @@ package dev.akaecliptic.models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public abstract class Media implements Serializable {
 
@@ -43,6 +44,20 @@ public abstract class Media implements Serializable {
                     ", userRating: " + this.userRating +
                     ", release: " + this.release +
                 " }";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Media)) return false;
+
+        Media media = (Media) o;
+        return id == media.id && Objects.equals(title, media.title) && Objects.equals(release, media.release);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, release);
     }
 
     public int getId() {
