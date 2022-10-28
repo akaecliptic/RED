@@ -4,6 +4,7 @@ import com.google.gson.*;
 import dev.akaecliptic.models.Configuration;
 import dev.akaecliptic.models.Information;
 import dev.akaecliptic.models.Movie;
+import dev.akaecliptic.models.Page;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ public class MovieFactory {
 
     static {
         GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(Page.class, new PageDeserializer());
         builder.registerTypeAdapter(Movie.class, new MovieDeserializer());
         builder.registerTypeAdapter(Movie[].class, new MovieListDeserializer());
         builder.registerTypeAdapter(Configuration.class, new ConfigurationDeserializer());
@@ -52,6 +54,10 @@ public class MovieFactory {
 
     public static Configuration createConfig(JsonElement json) {
         return gson.fromJson(json, Configuration.class);
+    }
+
+    public static Page createPage(JsonElement json) {
+        return gson.fromJson(json, Page.class);
     }
 
     private static int getInt(JsonElement json) {
@@ -135,7 +141,7 @@ public class MovieFactory {
             int nativeRating = format(getFloat(json.get("vote_average")));
             int userRating = 0;
             String stringDate = getString(json.get("release_date"));
-            LocalDate release = (stringDate == null) ? null : LocalDate.parse(stringDate);
+            LocalDate release = (stringDate == null) ? Movie.INDEFINITE_DATE : LocalDate.parse(stringDate);
 
             Information information = parseInformation(json);
 
@@ -159,7 +165,7 @@ public class MovieFactory {
                 int nativeRating = format(getFloat(json.get("vote_average")));
                 int userRating = 0;
                 String stringDate = getString(json.get("release_date"));
-                LocalDate release = (stringDate == null) ? null : LocalDate.parse(stringDate);
+                LocalDate release = (stringDate == null) ? Movie.INDEFINITE_DATE : LocalDate.parse(stringDate);
 
                 Information information = parseInformation(json);
 
@@ -170,6 +176,7 @@ public class MovieFactory {
         }
 
     }
+
     private static class ConfigurationDeserializer implements JsonDeserializer<Configuration> {
         @Override
         public Configuration deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
@@ -191,6 +198,40 @@ public class MovieFactory {
             posterSizes.forEach(child -> posters.add(getString(child)));
 
             return new Configuration(base, secure, backdrops.toArray(new String[]{}), posters.toArray(new String[]{}));
+        }
+
+    }
+
+    private static class PageDeserializer implements JsonDeserializer<Page> {
+        @Override
+        public Page deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
+            JsonObject page = element.getAsJsonObject();
+            if(page == null || page.isJsonNull()) return null;
+
+            JsonArray array = page.getAsJsonArray("results");
+            List<Movie> movies = new ArrayList<>();
+
+            for (int i = 0; i < array.size(); i++) {
+                JsonObject json = array.get(i).getAsJsonObject();
+
+                int id = getInt(json.get("id"));
+                boolean seen = false;
+                String title = getString(json.get("title"));
+                String description = getString(json.get("overview"));
+                int nativeRating = format(getFloat(json.get("vote_average")));
+                int userRating = 0;
+                String stringDate = getString(json.get("release_date"));
+                LocalDate release = (stringDate == null) ? Movie.INDEFINITE_DATE : LocalDate.parse(stringDate);
+
+                Information information = parseInformation(json);
+
+                movies.add(new Movie(id, title, seen, description, nativeRating, userRating, release, information));
+            }
+
+            int number = getInt(page.get("page"));
+            int total = getInt(page.get("total_pages"));
+
+            return new Page(number, total, movies);
         }
 
     }
