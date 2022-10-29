@@ -14,18 +14,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Hello, RED is part of the REDc package.
+ * Hello, this is the core of the RED package.
  *
- * The overall goal of this product is to server as the main HTTP API for Cinephile
- * and any other future projects.
+ * The overall goal of this project is to serve as the main HTTP API for Cinephile
+ * and any of my future projects.
  *
- * The goal is not to reinvent the wheel, or create a brand-new library.
- * Just a fun mini project, to replace the HTTP library currently being used,
- * which is not particularly fun to use.
+ * Just a fun mini project to replace the clunky HTTP library that was previously being used.
+ * While also making this generic enough to be built on for different projects.
  *
- * This hyper focused on the Cinephile use-case. As of 09/2022, the 2 criteria are:
- * > GET/POST calls
- * > Async calls
+ * This very simple and hyper focused use-case, as of now (09/2022), only has 2 criteria:
+ * > Making GET/POST calls
+ * > Making Async calls
  *
  */
 public class RED {
@@ -52,7 +51,7 @@ public class RED {
         return instance;
     }
 
-    //USE THESE
+    /* EXPOSED METHODS */
 
     public JsonElement json(String url) throws RequestException, JsonSyntaxException {
         Request request = new Request.Builder().url(url).get().build();
@@ -76,7 +75,7 @@ public class RED {
         async(request, callback);
     }
 
-    //UNDER THE HOOD
+    /* INTERNAL METHODS */
 
     private String call(Request request) throws RequestException {
         try (Response response = _client.newCall(request).execute()) {

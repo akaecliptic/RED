@@ -24,7 +24,7 @@ public class Configuration {
         return String.format("%s%s/%s", base, size, url);
     }
 
-    //GETTERS
+    // GETTERS
     public String base() {
         return this.imageURL;
     }

@@ -65,7 +65,7 @@ public class Information {
                 "}";
     }
 
-
+    // GETTERS
     public List<Integer> getGenres() {
         return this.genres;
     }

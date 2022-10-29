@@ -5,6 +5,15 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Hello, this class is used to wrap TMDB related functionality relevant to the Cinephile use-case.
+ *
+ * This class and {@link dev.akaecliptic.RED} are the cores of {@link dev.akaecliptic.TMDBCaller}.
+ *
+ * The idea is this class encompasses a lot of 'set once' properties. This allows for cleaner method
+ * signatures in {@link dev.akaecliptic.TMDBCaller}. As well as providing functionality related to TMDB,
+ * without the need to make a query.
+ */
 public class TMDBContext {
     private static final Logger LOGGER = Logger.getLogger(TMDBContext.class.getName());
 
@@ -24,7 +33,7 @@ public class TMDBContext {
             this.apiKey = properties.getProperty("TMDB.AuthV3");
         } catch (Exception e) {
             String message = "Exception found trying to read properties file {0}.\n" +
-                    "Please try manually setting setting api key or creating a valid" + file + " file.\n" +
+                    "Please try manually setting setting api key or creating a valid '" + file + "' file.\n" +
                     "Falling back to null...";
             LOGGER.log(Level.WARNING, message, file);
 
