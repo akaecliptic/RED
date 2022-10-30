@@ -34,7 +34,7 @@ public class Information {
         this.genres = new ArrayList<>();
     }
 
-    public Information(String poster, String backdrop, Integer runtime, String tagline, List<Integer> genres) {
+    public Information(String poster, String backdrop, int runtime, String tagline, List<Integer> genres) {
         this.poster = poster;
         this.backdrop = backdrop;
 
@@ -74,7 +74,7 @@ public class Information {
         this.genres = genres;
     }
 
-    public Integer getRuntime() {
+    public int getRuntime() {
         return this.runtime;
     }
 

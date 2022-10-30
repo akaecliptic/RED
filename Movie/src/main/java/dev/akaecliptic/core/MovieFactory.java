@@ -108,7 +108,7 @@ public class MovieFactory {
     private static Information parseInformation(JsonObject json) {
         String poster = getString(json.get("poster_path"));
         String backdrop = getString(json.get("backdrop_path"));
-        Integer runtime = getInt(json.get("runtime"));
+        int runtime = getInt(json.get("runtime"));
         String tagline = getString(json.get("tagline"));
 
         List<Integer> genres = parseGenre(json);
