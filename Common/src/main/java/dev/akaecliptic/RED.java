@@ -16,10 +16,10 @@ import java.util.logging.Logger;
 /**
  * Hello, this is the core of the RED package.
  *
- * The overall goal of this project is to serve as the main HTTP API for Cinephile
- * and any of my future projects.
+ * The overall goal of this project is to serve as the main HTTP library for Cinephile
+ * (although it's more of a facade for okhttp) and any of my future projects.
  *
- * Just a fun mini project to replace the clunky HTTP library that was previously being used.
+ * Just a fun mini project to replace the clunky HTTP implementation that was previously being used.
  * While also making this generic enough to be built on for different projects.
  *
  * This very simple and hyper focused use-case, as of now (09/2022), only has 2 criteria:
