@@ -8,7 +8,7 @@ public class Information {
     private String poster;
     private String backdrop;
 
-    private Integer runtime;
+    private int runtime;
     private String tagline;
 
     private List<Integer> genres;
@@ -18,7 +18,7 @@ public class Information {
         this.poster = null;
         this.backdrop = null;
 
-        this.runtime = null;
+        this.runtime = -1;
         this.tagline = null;
 
         this.genres = new ArrayList<>();
@@ -28,7 +28,7 @@ public class Information {
         this.poster = poster;
         this.backdrop = backdrop;
 
-        this.runtime = null;
+        this.runtime = -1;
         this.tagline = null;
 
         this.genres = new ArrayList<>();
@@ -78,7 +78,7 @@ public class Information {
         return this.runtime;
     }
 
-    public void setRuntime(Integer runtime) {
+    public void setRuntime(int runtime) {
         this.runtime = runtime;
     }
 
